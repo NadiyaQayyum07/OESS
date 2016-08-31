@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+  <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
+      <put-attribute name="title"  value="virtusa-Accelerating Business Outcomes "/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/tiles/homeMenu.jsp"/>
+      <put-attribute name="body"   value=" "/>
+      <put-attribute name="footer"   value="/WEB-INF/tiles/footer.jsp"/>
+  </definition>
+  
+  
+  <definition name="home" extends="baseLayout">
+     <put-attribute name="body"   value="/WEB-INF/jsp/home.jsp"/>      
+  </definition>
+  
+   <definition name="moderatorHome" extends="baseLayout">
+     <put-attribute name="menu"   value="/WEB-INF/jsp/moderatorMenu.jsp"/>      
+   </definition>
+   
+   <definition name="parameterForm" extends="baseLayout">
+     <put-attribute name="menu"   value="/WEB-INF/jsp/moderatorMenu.jsp"/>   
+     <put-attribute name="body"   value="/WEB-INF/jsp/parameterForm.jsp"/> 
+        
+   </definition>
+   
+   
+  <!--  
+  <definition name="whyVirtusa" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/whyVirtusa.jsp"/>      
+  </definition>
+  
+  <definition name="about" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/about.jsp"/>      
+  </definition>
+
+	<definition name="contactUs" extends="baseLayout">
+      <put-attribute name="title"  value="Welcome"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/contactUs.jsp"/>      
+  </definition>
+	  
+  <definition name="loginForm" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/loginForm.jsp"/>      
+  </definition>
+  
+   
+  <definition name="jobSeekerLogin" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/jobSeekerLogin.jsp"/>      
+  </definition>
+  
+  <definition name="moderatorOrPanelLogin" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+	  <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/moderatorOrPanelLogin.jsp"/>      
+  </definition>
+  
+  
+	<definition name="displayInternalJobSeekerRegistrationForm" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/> 
+      <put-attribute name="body"   value="/WEB-INF/jsp/displayInternalJobSeekerRegistrationForm.jsp"/>      
+  	</definition> 
+
+	<definition name="displayInternalJobSeekerRegistrationForm1" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/> 
+      <put-attribute name="body"   value="/WEB-INF/jsp/displayInternalJobSeekerRegistrationForm.jsp"/>      
+  	</definition> 
+  
+   <definition name="displayJobSeekerRegistrationForm" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/displayJobSeekerRegistrationForm.jsp"/>      
+  </definition> 
+  
+  <definition name="displayJobSeekerRegistrationForm1" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/> 
+      <put-attribute name="body"   value="/WEB-INF/jsp/displayJobSeekerRegistrationForm.jsp"/>      
+  </definition> 
+
+	<definition name="listOfJobs" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/listOfJobs.jsp"/>      
+  </definition>  
+  
+  <definition name="viewProfile" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/viewProfile.jsp"/>      
+  </definition>
+       
+  <definition name="viewStatus" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/>
+     <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/viewStatus.jsp"/>      
+  </definition> 
+  
+  <definition name="Success" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/Success.jsp"/>      
+  </definition>
+  
+  <definition name="panelHome" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/panelHome.jsp"/>      
+  </definition> 
+  
+  <definition name="jobSeekersList" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/jobSeekersList.jsp"/>      
+  </definition> 
+  
+   <definition name="jobSeekerHome" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/jobSeekerHome.jsp"/>      
+  </definition>
+  
+  <definition name="Failure" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/Failure.jsp"/>      
+  </definition> 
+  
+   <definition name="displayJobForm" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+       <put-attribute name="header"   value="/WEB-INF/jsp/adminHomeMenu1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/displayJobForm.jsp"/>      
+  </definition>
+  
+   <definition name="viewClosedJobs" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+       <put-attribute name="header"   value="/WEB-INF/jsp/adminHomeMenu1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/viewClosedJobs.jsp"/>      
+  </definition>
+	
+	<definition name="adminHome" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+       <put-attribute name="header"   value="/WEB-INF/jsp/adminHomeMenu1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/adminHome.jsp"/>      
+  </definition>
+  
+  <definition name="addRound" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="header"   value="/WEB-INF/jsp/adminHomeMenu1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/addRound.jsp"/>      
+  </definition>
+  
+  <definition name="getJobDetailsOfJobSeeker" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="header"   value="/WEB-INF/jsp/adminHomeMenu1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/getJobDetailsOfJobSeeker.jsp"/>      
+  </definition>
+  
+  <definition name="addParameter" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="header"   value="/WEB-INF/jsp/adminHomeMenu1.jsp"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/addParameter.jsp"/>      
+  </definition>
+  
+  <definition name="errorPage" extends="baseLayout">
+      <put-attribute name="title"  value="Login"/>
+      <put-attribute name="menu"   value="/WEB-INF/jsp/side.jsp"/>
+      <put-attribute name="body"   value="/WEB-INF/jsp/errorPage.jsp"/>      
+  </definition> 
+  
+  -->
+</tiles-definitions>
