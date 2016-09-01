@@ -4,43 +4,50 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bean="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+          p:prefix="/" p:suffix=".jsp"/>
+
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/online_exam"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value="root"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/online_exam"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
     </bean>
-
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>com.cdk.springmvchibernate.domain.User</value>
+                <value>com.cdk.oes.domain.Exam</value>
+                <value>com.cdk.oes.domain.Question</value>
+                <value>com.cdk.oes.domain.User</value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>
-    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
-        <property name="sessionFactory" ref="sessionFactory"></property>
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-    <bean id="userDAO" class="com.cdk.springmvchibernate.dao.UserDAO">
-        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    <bean id="userDAO" class="com.cdk.oes.dao.UserDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+    <bean id="adminDAO" class="com.cdk.oes.dao.AdminDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
     </bean>
     <mvc:annotation-driven/>
-    <context:component-scan base-package="com.cdk.springmvchibernate.controller"/>
+    <context:component-scan base-package="com.cdk.oes.controller"/>
+    <context:component-scan base-package="com.cdk.oes.dao"/>
+
 
 </beans>
 
