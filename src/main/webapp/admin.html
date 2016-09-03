@@ -9,23 +9,134 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="common.css">
     <script src="jquery-3.1.0.js" type="text/javascript"></script>
-    <script>$(function () {
-        $("#cu").on("click", function () {
-            $("#main").load("createUser.html");
+    <script>
+
+        function uploadFile() {
+
+            var formData = new FormData();
+            formData.append("startTime", document.getElementById("startTime").value);
+            console.log(document.getElementById("startTime").value);
+            formData.append("endTime", document.getElementById("endTime").value);
+            formData.append("duration", document.getElementById("duration").value);
+            var files = $("#file").get(0).files;
+            formData.append("file", files[0]);
+            console.log($("#file").get(0).files);
+            console.log(formData);
+            $.ajax({
+                url: '/insertData.do',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                error: function (result) {
+                    console.log(result.responseText);
+                },
+                success: function (result) {
+                    console.log("Entered Into Database");
+                    console.log(result);
+                }
+            });
+        }
+
+        $(function () {
+            $("#cu").on("click", function () {
+                $("#one").css("visibility", "visible");
+                $("#two").css("visibility", "hidden");
+                $("#three").css("visibility", "hidden");
+                $("#four").css("visibility", "hidden");
+            });
+            $("#ct").on("click", function () {
+                $("#two").css("visibility", "visible");
+                $("#one").css("visibility", "hidden");
+                $("#three").css("visibility", "hidden");
+                $("#four").css("visibility", "hidden");
+            });
+            $("#vc").on("click", function () {
+                $("#three").css("visibility", "visible");
+                $("#two").css("visibility", "hidden");
+                $("#one").css("visibility", "hidden");
+                $("#four").css("visibility", "hidden");
+            });
+            $("#dt").on("click", function () {
+                $("#four").css("visibility", "visible");
+                $("#one").css("visibility", "hidden");
+                $("#two").css("visibility", "hidden");
+                $("#three").css("visibility", "hidden");
+            });
         });
-        $("#ut").on("click", function () {
-            $("#main").load("uploadTest.html");
+
+
+        function hideDiv() {
+            document.getElementById("one_status").style.visibility = "hidden";
+        }
+
+
+        function register() {
+            var checkedValue = 0;
+            if(document.getElementById("ma").checked = true){
+                checkedValue = 1;
+            }
+            console.log(checkedValue);
+            var data = {
+                "name": document.form.name.value,
+                "email": document.form.email.value,
+                "country": document.form.country.value,
+                "gender": document.form.gender.value,
+                "makeAdmin": checkedValue,
+            };
+            $.ajax({
+                url: "/register.do",
+                type: "post",
+                data: data,
+                datatype: "text",
+                success: function (results) {
+                    document.getElementById("one_status").style.visibility = "visible";
+                    document.getElementsByClassName("form").reset;
+                },
+                error: function (result) {
+                    console.log("failure " + result);
+                }
+            });
+        }
+
+
+        $(function () {
+            var table = $("<table id=DynamicTable border=2></table>").appendTo("#three");
+
+            var rowHeader = $("<tr></tr>").appendTo(table);
+            $("<td></td>").text("UserId").appendTo(rowHeader);
+            $("<td></td>").text("UserName").appendTo(rowHeader);
+            $("<td></td>").text("Password").appendTo(rowHeader);
+            $("<td></td>").text("Name").appendTo(rowHeader);
+            $("<td></td>").text("Email").appendTo(rowHeader);
+            $("<td></td>").text("Country").appendTo(rowHeader);
+            $("<td></td>").text("Gender").appendTo(rowHeader);
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "list.do",
+                dataType: 'json',
+                success: function (results) {
+                    $.each(results, function (i, value) {
+                        var row = $("<tr id = " + value.userId + "></tr>").appendTo(table);
+                        $("<td></td>").text(value.userId).appendTo(row);
+                        $("<td></td>").text(value.userName).appendTo(row);
+                        $("<td></td>").text(value.password).appendTo(row);
+                        $("<td></td>").text(value.name).appendTo(row);
+                        $("<td></td>").text(value.email).appendTo(row);
+                        $("<td></td>").text(value.country).appendTo(row);
+                        $("<td></td>").text(value.gender).appendTo(row);
+                    });
+                },
+                error: function (result) {
+                    alert("didn't worked");
+                }
+            });
         });
-        $("#vc").on("click", function () {
-            $("#main").load("PageB.html");
-        });
-        $("#cr").on("click", function () {
-            $("#main").load("PageB.html");
-        });
-        $("#at").on("click", function () {
-            $("#main").load("PageB.html");
-        });
-    });</script>
+    </script>
+
+
 </head>
 <body>
 
@@ -40,13 +151,8 @@
             <a class="navbar-brand" href="#" id="logo"><img src="cdk.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                <li><a href="home.html"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
             </ul>
         </div>
     </div>
@@ -55,14 +161,64 @@
 <div class="container-fluid">
     <div class="row content">
         <div class="col-sm-2 sidenav">
-            <a href="#" id="cu">create user</a><br>
-            <a href="#" id="ut">create test</a><br>
-            <a href="#" id="vc">view candidates</a><br>
-            <a href="#" id="cr">create roles</a><br>
-            <a href="#" id="at">assign test</a>
+            <a href="#one" id="cu">create user</a><br>
+            <a href="#two" id="ct">create test</a><br>
+            <a href="#three" id="vc">view candidates</a><br>
+            <a href="#four" id="dt">delete test</a><br>
 
         </div>
         <div class="col-sm-8 text-left" id="main">
+            <div id="one" style="visibility: hidden" class="multi">
+                <form id="fields" name="form">
+
+                    <input type="text" name="name" value="" placeholder="Full Name"><br>
+
+                    <input type="text" name="email" value="" placeholder="Email"><br>
+
+                    <input type="text" name="country" value="" placeholder="country"><br>
+
+                    <input type="radio" name="gender" value="male">male<br>
+                    <input type="radio" name="gender" value="female">female<br>
+                    <br>
+                    <input type="checkbox" name="makeAdmin" value="1" id="ma">Make Admin
+                    <br>
+
+                    <button type="button" onclick="register()">Register</button>
+                    <button type="reset" value="Reset" onclick="hideDiv()">Reset</button>
+
+                </form>
+            </div>
+            <div id="one_status" style="visibility: hidden" class="status">
+                <h1>User Created Successfully</h1>
+            </div>
+
+            <div id="two" style="visibility: hidden" class="multi">
+                <form id="upload">
+                    <div>
+                        <label>Start Time</label>
+                        <input id="startTime" name="" type="datetime-local">
+                    </div>
+                    <div>
+                        <label>End Time</label>
+                        <input id="endTime" name="" type="datetime-local">
+                    </div>
+                    <div>
+                        <label>Duration</label>
+                        <input id="duration" name="" type="number">
+                    </div>
+                    <div>
+                        <input type="file" id="file" name="file" value="Browse"><br>
+                        <button type="submit" onclick="uploadFile()">Add Test</button>
+                    </div>
+                </form>
+            </div>
+            <div id="three" style="visibility: hidden" class="multi">
+
+            </div>
+            <div id="four" style="visibility: hidden" class="multi">
+
+            </div>
+
         </div>
         <div class="col-sm-2 sidenav">
 
