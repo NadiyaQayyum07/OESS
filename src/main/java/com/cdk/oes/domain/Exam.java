@@ -24,8 +24,10 @@ public class Exam {
     @Column
     private int duration;
 
-    @OneToMany
-    @JoinColumn(name = "exam_id")
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name = "exam_question_t",
+    joinColumns = {@JoinColumn(name = "exam_id")},
+    inverseJoinColumns = {@JoinColumn(name = "question_id")})
     private Set<Question> questionSet;
 
     public int getExamId() {
@@ -67,4 +69,5 @@ public class Exam {
     public void setQuestionSet(Set<Question> questionSet) {
         this.questionSet = questionSet;
     }
+
 }
