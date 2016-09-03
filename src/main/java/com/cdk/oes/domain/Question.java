@@ -8,20 +8,34 @@ import javax.persistence.*;
 @Entity
 @Table(name = "question_t")
 public class Question {
+
     @Id
     @GeneratedValue
     @Column(name = "question_id")
     private int questionId;
+
     @Column
     private String title;
+
     @Column
     private String description;
+
     @Column
     private String options;
-    @Column
-    private int marks;
+
     @Column
     private String answers;
+
+    @Column
+    private int marks;
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
 
     public int getQuestionId() {
         return questionId;
@@ -53,14 +67,6 @@ public class Question {
 
     public void setOptions(String options) {
         this.options = options;
-    }
-
-    public int getMarks() {
-        return marks;
-    }
-
-    public void setMarks(int marks) {
-        this.marks = marks;
     }
 
     public String getAnswers() {
