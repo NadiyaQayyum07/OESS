@@ -5,6 +5,7 @@ import com.cdk.oes.dao.ExamDAO;
 import com.cdk.oes.dao.QuestionDAO;
 import com.cdk.oes.dao.UserDAO;
 import com.cdk.oes.dto.Exam;
+import com.cdk.oes.dto.Question;
 import com.cdk.oes.dto.User;
 import com.cdk.oes.service.AdminService;
 import com.cdk.oes.util.DateUtility;
@@ -84,7 +85,6 @@ public class AdminController {
         this.questionDAO = questionDAO;
     }
 
-
     public QuestionDAO getQuestionDAO() {
         return questionDAO;
     }
@@ -132,13 +132,13 @@ public class AdminController {
     }
 
 
-    /*@RequestMapping(value = "/listQuestion", method = RequestMethod.GET)
+    @RequestMapping(value = "/listQuestion", method = RequestMethod.GET)
     public
     @ResponseBody
     List<Question> listQuestion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        return questionDAO.listQuestions();
+        return questionDAO.listQuestion();
 
-    }*/
+    }
 
     @RequestMapping(value = "/insertData", method = RequestMethod.POST)
     public ModelAndView insertData(HttpServletRequest request, HttpServletResponse response) {

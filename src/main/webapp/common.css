@@ -1,8 +1,8 @@
 /* Remove the navbar's default margin-bottom and rounded borders */
 
 .navbar #logo img {
-    width: 80px;
-    height: 35px;
+    width: 180px;
+    height: 45px;
 }
 
 .navbar {
@@ -10,6 +10,10 @@
     border-radius: 0;
 }
 
+.multi {
+    position: fixed;
+    margin-top: 0;
+}
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {height: 660px}
 
@@ -18,6 +22,7 @@
     padding-top: 20px;
     background-color: #f1f1f1;
     height: 100%;
+    display: inline;
 }
 
 /* Set black background color, white text and some padding */
@@ -32,6 +37,7 @@ footer {
     .sidenav {
         height: auto;
         padding: 15px;
+        display: inline;
     }
     .row.content {height:auto;}
 }

@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by qayyumn on 9/1/2016.
  */
@@ -38,8 +41,29 @@ public class QuestionDAO {
         return question;
     }
 
+    public List<Question> listQuestion(){
+        List<com.cdk.oes.domain.Question> domainQuestionList = hibernateTemplate.loadAll(com.cdk.oes.domain.Question.class);
+        List<Question> dtoQuestionList = null;
+        if(domainQuestionList !=null && domainQuestionList.size()!=0){
+            dtoQuestionList = new ArrayList<>();
+            for(com.cdk.oes.domain.Question q: domainQuestionList){
+                Question question = new Question();
+                question.setQuestionId(q.getQuestionId());
+                question.setTitle(q.getTitle());
+                question.setDescription(q.getDescription());
+                question.setOptions(q.getOptions());
+                /*question.setTopic_id(q.getTopic_id());
+                question.setSubtopic_id(q.getSubtopic_id());*/
+                question.setAnswers(q.getAnswers());
+                dtoQuestionList.add(question);
+            }
 
-   /* public List<Question> fetchQuestions(int examId) {
+        }
+        return dtoQuestionList;
+    }
+
+
+        /*public List<Question> fetchQuestions(int examId) {
         List<com.cdk.oes.domain.Question> domainQuestionList = hibernateTemplate.get(com.cdk.oes.domain.Question.class,examId);
         List<Question> dtoQuestionList = null;
         if(domainQuestionList !=null && domainQuestionList.size()!=0){
@@ -55,6 +79,5 @@ public class QuestionDAO {
 
         }
         return dtoQuestionList;
-    }
-*/
+    }*/
 }

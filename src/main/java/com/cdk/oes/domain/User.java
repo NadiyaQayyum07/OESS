@@ -25,11 +25,12 @@ public class User {
     private String country;
     @Column
     private String gender;
+    @Column
+    private int role;
 
     @OneToMany
     @JoinColumn(name = "user_id")
     private Set<Exam> examSet;
-
 
     public int getUserId() {
         return userId;
@@ -85,5 +86,21 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public Set<Exam> getExamSet() {
+        return examSet;
+    }
+
+    public void setExamSet(Set<Exam> examSet) {
+        this.examSet = examSet;
     }
 }

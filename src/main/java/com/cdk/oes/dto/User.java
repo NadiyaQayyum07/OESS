@@ -15,8 +15,17 @@ public class User {
     private String email;
     private String country;
     private String gender;
+    private int role;
 
     private Set<Exam> examSet;
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
 
     public Set<Exam> getExamSet() {
         return examSet;
@@ -80,5 +89,19 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", country='" + country + '\'' +
+                ", gender='" + gender + '\'' +
+                ", examSet=" + examSet +
+                '}';
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap</title>
+    <title>OES</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,39 +14,24 @@
         function validator() {
             var username = document.login.username.value;
             var password = document.login.password.value;
-
-            var radio = document.login.identity.value;
             var data = {"username": username, "password": password};
-            if (radio == "admin") {
-                $.ajax({
-                    type: 'POST',
-                    data: data,
-                    url: '/check.do',
-                    success: function (result) {
-                        console.log(result);
-                        if (result =="success") {
-                            document.location.href = "admin.html";
-                        }
-                        else {
-                            document.getElementById("status").style.visibility = "visible";
-                        }
-
-                    },
-                });
-
-            }
-            else {
-                $.ajax({
-                    type: 'POST',
-                    data: data,
-                    url: 'UserController',
-                    dataType: 'json',
-                    success: function (result) {
-                        alert(result + "success");
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: '/check.do',
+                success: function (result) {
+                    if (result == "successAdmin") {
+                        document.location.href = "admin.html";
                     }
-                });
+                    else if (result == "successUser") {
+                        document.location.href = "candidate.html";
+                    }
+                    else {
+                        document.getElementById("status").style.visibility = "visible";
+                    }
 
-            }
+                }
+            });
         }
     </script>
 </head>
@@ -81,22 +66,20 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h1>Welcome</h1>
+            <h1><marquee scrolldelay="50">Welcome To Online Examination System</marquee></h1>
+            <h3><p>Online Examination System(OES) is a Multiple Choice Questions(MCQ) based examination system that provides an easy to use environment for both Test Conducters and Students appearing for Examination. The main objective of OES is to provide all the features that an Examination System must have, with a user friendly interface.</p></h3>
+
         </div>
         <div class="col-sm-2 sidenav">
             <form name="login">
                 <div class="well">
-                    <input type="text" placeholder="username" name="username">
+                    <input type="text" placeholder="Enter Username" name="username">
                 </div>
                 <div class="well">
-                    <input type="password" placeholder="password" name="password">
+                    <input type="password" placeholder="Enter Password" name="password">
                 </div>
                 <div class="well">
-                    <input type="radio" name="identity" value="admin">Admin
-                    <input type="radio" name="identity" value="candidate">Candidate
-                </div>
-                <div class="well">
-                    <li><input type="button" onclick="validator()" value="Login"></li>
+                    <li><input type="button" onclick="validator()" value="LOGIN"></li>
                 </div>
                 <div class="well" id="status" style="visibility: hidden">
                     <li><font color="red">Invalid Credentials</font></li>
@@ -107,7 +90,7 @@
 </div>
 
 <footer class="container-fluid text-center">
-    <p>Online Examination System</p>
+    <p><marquee><font size="12">CDK ONLINE EXAMINATION SYSTEM</font></marquee></p>
 </footer>
 
 </body>

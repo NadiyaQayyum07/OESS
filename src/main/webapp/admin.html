@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>OES</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -11,11 +11,23 @@
     <script src="jquery-3.1.0.js" type="text/javascript"></script>
     <script>
 
+        function check() {
+            var inputs = form.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].hasAttribute("required")) {
+                    if (inputs[i].value == "") {
+                        alert("Please fill all required fields");
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         function uploadFile() {
 
             var formData = new FormData();
             formData.append("startTime", document.getElementById("startTime").value);
-            console.log(document.getElementById("startTime").value);
             formData.append("endTime", document.getElementById("endTime").value);
             formData.append("duration", document.getElementById("duration").value);
             var files = $("#file").get(0).files;
@@ -72,35 +84,43 @@
 
 
         function register() {
-            var checkedValue = 0;
-            if(document.getElementById("ma").checked = true){
-                checkedValue = 1;
-            }
-            console.log(checkedValue);
-            var data = {
-                "name": document.form.name.value,
-                "email": document.form.email.value,
-                "country": document.form.country.value,
-                "gender": document.form.gender.value,
-                "makeAdmin": checkedValue,
-            };
-            $.ajax({
-                url: "/register.do",
-                type: "post",
-                data: data,
-                datatype: "text",
-                success: function (results) {
-                    document.getElementById("one_status").style.visibility = "visible";
-                    document.getElementsByClassName("form").reset;
-                },
-                error: function (result) {
-                    console.log("failure " + result);
+            var val = check();
+            if (val == true) {
+                var checkedValue = 0;
+                if (document.form.makeAdmin.checked == true) {
+                    checkedValue = 1;
                 }
-            });
+                console.log(checkedValue);
+                var data = {
+                    "name": document.form.name.value,
+                    "email": document.form.email.value,
+                    "country": document.form.country.value,
+                    "gender": document.form.gender.value,
+                    "makeAdmin": checkedValue,
+                };
+                $.ajax({
+                    url: "/register.do",
+                    type: "post",
+                    data: data,
+                    datatype: "text",
+                    success: function (results) {
+                        document.getElementById("one_status").style.visibility = "visible";
+                        document.getElementsByClassName("form").reset;
+                    },
+                    error: function (result) {
+                        console.log("failure " + result);
+                    }
+                });
+            }
+            else {
+                alert(failure);
+            }
         }
 
-
-        $(function () {
+        function listCandidate(link) {
+            link.onclick = function (event) {
+                event.preventDefault();
+            }
             var table = $("<table id=DynamicTable border=2></table>").appendTo("#three");
 
             var rowHeader = $("<tr></tr>").appendTo(table);
@@ -115,11 +135,11 @@
             $.ajax({
                 type: "GET",
                 contentType: "application/json",
-                url: "list.do",
+                url: "listCandidate.do",
                 dataType: 'json',
                 success: function (results) {
                     $.each(results, function (i, value) {
-                        var row = $("<tr id = " + value.userId + "></tr>").appendTo(table);
+                        var row = $("<tr></tr>").appendTo(table);
                         $("<td></td>").text(value.userId).appendTo(row);
                         $("<td></td>").text(value.userName).appendTo(row);
                         $("<td></td>").text(value.password).appendTo(row);
@@ -130,10 +150,10 @@
                     });
                 },
                 error: function (result) {
-                    alert("didn't worked");
+                    console.log(result.responseText);
                 }
             });
-        });
+        }
     </script>
 
 
@@ -143,11 +163,6 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="#" id="logo"><img src="cdk.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
@@ -161,38 +176,54 @@
 <div class="container-fluid">
     <div class="row content">
         <div class="col-sm-2 sidenav">
-            <a href="#one" id="cu">create user</a><br>
-            <a href="#two" id="ct">create test</a><br>
-            <a href="#three" id="vc">view candidates</a><br>
-            <a href="#four" id="dt">delete test</a><br>
+
+            <div class="well">
+            <a href="#one" id="cu"><button class="btn btn-info active">Create New User</button></a><br>
+            </div>
+
+            <div class="well">
+            <a href="#two" id="ct"><button class="btn btn-info active">Create Test</button></a><br>
+            </div>
+
+            <div class="well">
+            <a href="#three" id="vc" onclick="listCandidate(this)"><button class="btn btn-info active">View Candidates</button></a><br>
+            </div>
 
         </div>
         <div class="col-sm-8 text-left" id="main">
-            <div id="one" style="visibility: hidden" class="multi">
-                <form id="fields" name="form">
-
-                    <input type="text" name="name" value="" placeholder="Full Name"><br>
-
-                    <input type="text" name="email" value="" placeholder="Email"><br>
-
-                    <input type="text" name="country" value="" placeholder="country"><br>
-
-                    <input type="radio" name="gender" value="male">male<br>
-                    <input type="radio" name="gender" value="female">female<br>
+            <div id="one"  align="left" style="visibility: hidden" class="overlay">
+                <form id="fields" name="form" onsubmit="return check(this)">
+                    <img src="enter.jpg"><br>
+                    ---------------------------------------------------------<br>
+                    <label>FULL NAME:</label>
+                    <input type="text" name="name" value="" placeholder="Enter Full Name" required/><br>
+                    <label>EMAIL ID:</label>
+                    <input type="text" name="email" value="" placeholder="Enter E-Mail Id" required/><br>
+                    <label>COUNTRY:</label>
+                    <input type="text" name="country" value="" placeholder="Enter Country" required/><br>
+                    ---------------------------------------------------------<br>
+                    <label>SELECT GENDER:</label><br>
+                    <input type="radio" name="gender" value="male" required/>Male<br>
+                    <input type="radio" name="gender" value="female" required/>Female<br>
                     <br>
+                    ---------------------------------------------------------<br>
+                    <label>---PLZ CHECK TO MAKE USER AS ADMIN---</label><br>
                     <input type="checkbox" name="makeAdmin" value="1" id="ma">Make Admin
                     <br>
 
-                    <button type="button" onclick="register()">Register</button>
-                    <button type="reset" value="Reset" onclick="hideDiv()">Reset</button>
+                    ---------------------------------------------------------<br>
+
+                    <button type="button" onclick="register()">Register</button><br>
+                    <button type="reset" value="Reset" onclick="hideDiv()">Reset</button><br>
 
                 </form>
             </div>
-            <div id="one_status" style="visibility: hidden" class="status">
+            <div id="one_status" style="visibility: hidden">
                 <h1>User Created Successfully</h1>
             </div>
 
-            <div id="two" style="visibility: hidden" class="multi">
+            <div id="two" align="center" style="visibility: hidden" class="overlay">
+                <img src="upload.png">
                 <form id="upload">
                     <div>
                         <label>Start Time</label>
@@ -212,10 +243,7 @@
                     </div>
                 </form>
             </div>
-            <div id="three" style="visibility: hidden" class="multi">
-
-            </div>
-            <div id="four" style="visibility: hidden" class="multi">
+            <div id="three"  align="center" style="visibility: hidden" class="overlay">
 
             </div>
 
@@ -227,7 +255,7 @@
 </div>
 
 <footer class="container-fluid text-center">
-    <p>Online Examination System</p>
+    <p><marquee><font size="12">CDK ONLINE EXAMINATION SYSTEM</font></marquee></p>
 </footer>
 
 </body>

@@ -16,7 +16,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
         <property name="url" value="jdbc:mysql://localhost:3306/online_exam"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value="root@123"/>
     </bean>
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -38,17 +38,23 @@
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+   <!-- <bean id="examDAO" class="com.cdk.oes.dao.ExamDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
+
+    <bean id="questionDAO" class="com.cdk.oes.dao.QuestionDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/>
+    </bean>
     <bean id="userDAO" class="com.cdk.oes.dao.UserDAO">
         <property name="hibernateTemplate" ref="hibernateTemplate"/>
     </bean>
     <bean id="adminDAO" class="com.cdk.oes.dao.AdminDAO">
         <property name="hibernateTemplate" ref="hibernateTemplate"/>
-    </bean>
+    </bean>-->
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.cdk.oes.controller"/>
     <context:component-scan base-package="com.cdk.oes.dao"/>
-
-
+    <context:component-scan base-package="com.cdk.oes.service"/>
 </beans>
 
 

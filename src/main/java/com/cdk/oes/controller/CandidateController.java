@@ -3,14 +3,20 @@ package com.cdk.oes.controller;
 import com.cdk.oes.dao.ExamDAO;
 import com.cdk.oes.dao.QuestionDAO;
 import com.cdk.oes.dto.Exam;
+import com.cdk.oes.dto.Question;
 import com.google.gson.Gson;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.out;
@@ -76,5 +82,21 @@ public class CandidateController {
         response.setCharacterEncoding("utf-8");
         out.println(jsonString);
         return jsonString;
+    }
+
+    @RequestMapping(value = "/evalScore",method = RequestMethod.POST)
+    public @ResponseBody String  evalScore(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,@RequestBody ArrayList<Question> questionsList ) {
+        System.out.println(questionsList);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        List<Question> questions = objectMapper.convertValue(questionsList, new TypeReference<List<Question>>() { });
+
+        for (Question ques : questions) {
+            System.out.println(ques);
+
+        }
+
+        return null;
     }
 }

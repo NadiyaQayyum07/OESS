@@ -6,19 +6,11 @@ package com.cdk.oes.dto;
 public class Question {
 
     private int questionId;
-    private String title;
     private String description;
     private String options;
     private int marks;
     private String answers;
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
-    }
+    private String title;
 
     public String getTitle() {
         return title;
@@ -26,6 +18,14 @@ public class Question {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
     }
 
     public String getDescription() {
